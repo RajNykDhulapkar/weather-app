@@ -9,10 +9,28 @@ export enum ErrorCode {
 
 export type WeatherData = {
   temperature: number;
+  minTemperature: number;
+  maxTemperature: number;
   humidity: number;
   windSpeed: number;
+  rain: number;
+  cloudy: number;
   description: string;
+  icon: string;
   city: string;
+};
+
+export type ForecastData = {
+  day: string;
+  minTemperature: number;
+  maxTemperature: number;
+  description: string;
+  icon: string;
+};
+
+export type WeatherApiResponse = {
+  current: WeatherData;
+  forecast: ForecastData[];
 };
 
 export type ErrorResponse = {
@@ -26,7 +44,7 @@ export interface ApiResponse<T> {
 }
 
 export const serverSchema = z.object({
-  OPENWEATHER_API_KEY: z.string().default(""),
+  OPENWEATHER_API_KEY: z.string().default("e26797a87d88e2498f134201dd597843"),
   PORT: z.string().default("8080"),
   WEB_APP_URL: z.string().url().default("http://localhost:3000"),
 });
