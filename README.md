@@ -27,6 +27,9 @@ weather-app/
 ## Running the Project
 
 ```bash
+git clone https://github.com/RajNykDhulapkar/weather-app
+cd weather-app
 pnpm install
-pnpm start
+pnpm run build
+pnpm run start
 ```

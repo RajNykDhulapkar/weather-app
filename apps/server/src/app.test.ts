@@ -20,25 +20,56 @@ describe("API Endpoints", () => {
       main: {
         temp: 20,
         humidity: 65,
+        temp_min: 18,
+        temp_max: 22,
       },
+      rain: { "1h": 0.5 },
+      clouds: { all: 75 },
       wind: {
         speed: 5.5,
       },
       weather: [
         {
           description: "scattered clouds",
+          icon: "03d",
         },
       ],
       name: "London",
     };
 
+    const mockForecastData = {
+      list: [
+        {
+          main: {
+            temp_min: 18,
+            temp_max: 22,
+          },
+          weather: [
+            {
+              description: "scattered clouds",
+              icon: "03d",
+            },
+          ],
+          dt_txt: "2024-03-24 12:00:00",
+        },
+      ],
+    };
+
     beforeEach(() => {
-      global.fetch = jest.fn(() =>
-        Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockWeatherData),
-        } as Response),
-      );
+      global.fetch = jest
+        .fn()
+        .mockImplementationOnce(() =>
+          Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve(mockWeatherData),
+          } as Response),
+        )
+        .mockImplementationOnce(() =>
+          Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve(mockForecastData),
+          } as Response),
+        );
     });
 
     afterEach(() => {
@@ -54,11 +85,27 @@ describe("API Endpoints", () => {
       expect(response.body).toEqual({
         message: "Weather data retrieved successfully",
         data: {
-          temperature: 20,
-          humidity: 65,
-          windSpeed: 5.5,
-          description: "scattered clouds",
-          city: "London",
+          current: {
+            temperature: 20,
+            humidity: 65,
+            minTemperature: 18,
+            maxTemperature: 22,
+            windSpeed: 5.5,
+            rain: 0.5,
+            cloudy: 75,
+            description: "scattered clouds",
+            icon: "03d",
+            city: "London",
+          },
+          forecast: [
+            {
+              day: expect.any(String),
+              minTemperature: 18,
+              maxTemperature: 22,
+              description: "scattered clouds",
+              icon: "03d",
+            },
+          ],
         },
       });
 
