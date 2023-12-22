@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
-const app = express();
+export const app: express.Application = express();
 
 app.use(express.json());
 app.use(
