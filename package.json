@@ -7,12 +7,20 @@
     "web": "pnpm --filter @weather-app/web",
     "backend": "pnpm --filter @weather-app/server",
     "types": "pnpm --filter @weather-app/types",
-    "dev": "pnpm --recursive --parallel --stream run dev"
+    "dev": "pnpm --recursive --parallel --stream run dev",
+    "build:types": "pnpm types build",
+    "build:web": "pnpm web build",
+    "build:server": "pnpm backend build",
+    "build": "pnpm build:types && pnpm build:server && pnpm build:web",
+    "start:web": "pnpm web start",
+    "start:server": "pnpm backend start",
+    "start": "pnpm run build && concurrently \"pnpm start:server\" \"pnpm start:web\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^9.1.0",
     "typescript": "^5"
   },
   "dependencies": {

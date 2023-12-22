@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=../../.env nodemon --watch './src/**/*.ts' --exec 'NODE_PATH=../../packages ts-node -r tsconfig-paths/register' src/app.ts",
-    "build": "tsc",
-    "start": "node dist/app.js",
+    "build": "NODE_PATH=../../packages tsc --project tsconfig.json",
+    "start": "NODE_PATH=../../packages node -r tsconfig-paths/register  dist/app.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },

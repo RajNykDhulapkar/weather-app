@@ -23,6 +23,12 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
     }
   }, [city]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className="text-muted-foreground flex justify-center text-3xl">
       <span>Right now in </span>
